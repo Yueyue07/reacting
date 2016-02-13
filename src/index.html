@@ -9,49 +9,38 @@
   <body>
     <div id="app"></div>
 
+    <div id="post"></div>
 
+
+
+<!--build.js-->
+    <script src="src/build.js">
+    </script>
+<!--endbuild-->
     <script type="text/babel">
-    var BearApp = React.createClass({
-    getInitialState: function() {
-      return {
-        bears: []
-      };
-    },
+      var NewBear = React.createClass({
+        getInitialState: function() {
+          return {value: 'Hello!'};
+        },
+        handleChange: function(event) {
+          this.setState({value: event.target.value});
+        },
+        render: function() {
+          return (
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          );
+        }
+      });
 
-    componentDidMount: function() {
-      this.serverRequest = $.get(this.props.source, function (result) {
-        console.log(result[0]);
-        var bears = result;
-        console.log(bears);
-        this.setState({
-          bears: bears
-        });
-      }.bind(this));
-    },
-
-    componentWillUnmount: function() {
-      this.serverRequest.abort();
-    },
-
-    render: function() {
-      return (
-
-        <div>
-          {
-            this.state.bears.map(function(bear) {
-              return <section key={bear._id}> <p> name: {bear.name}</p>  <p>fishPreference: {bear.fishPreference} </p> </section>
-            })
-          }
-        </div>
-
+      ReactDOM.render(
+      <NewBear />,
+      document.getElementById('post')
       );
-    }
-  });
 
-  ReactDOM.render(
-    <BearApp source="http://localhost:3000/api/bears" />,
-    document.getElementById('app')
-  );
     </script>
   </body>
 </html>
