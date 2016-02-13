@@ -10,8 +10,36 @@
   <body>
     <div id="app"></div>
 
+    <div id="post"></div>
 
+<!--build.js-->
+    <script src="src/build.js">
+    </script>
+<!--endbuild-->
+    <script type="text/babel">
+      var NewBear = React.createClass({
+        getInitialState: function() {
+          return {value: 'Hello!'};
+        },
+        handleChange: function(event) {
+          this.setState({value: event.target.value});
+        },
+        render: function() {
+          return (
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
+          );
+        }
+      });
 
-    
+      ReactDOM.render(
+      <NewBear />,
+      document.getElementById('post')
+      );
+
+    </script>
   </body>
 </html>
