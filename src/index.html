@@ -39,7 +39,7 @@
         <div>
           {
             this.state.bears.map(function(bear) {
-              return <article ><p key={bear.id}> name: {bear.name}  fishPreference: {bear.fishPreference} </p> </article>
+              return <article key={bear._id}><p > name: {bear.name}  fishPreference: {bear.fishPreference} </p> </article>
             })
           }
         </div>
