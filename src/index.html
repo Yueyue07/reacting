@@ -1,17 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  </head>
   <body>
     <div id="app"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js"></script>
 
-    <!-- build:js -->
-<!--     // <script src="src/Child.js"></script>
-    // <script src="src/Parent.js"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="src/App.js"></script>
-    
-    <!-- endbuild -->
+
+    <script type="text/babel">
+    var BearApp = React.createClass({
+    getInitialState: function() {
+      return {
+        bears: []
+      };
+    },
+
+    componentDidMount: function() {
+      this.serverRequest = $.get(this.props.source, function (result) {
+        console.log(result[0]);
+        var bears = result;
+        console.log(bears);
+        this.setState({
+          bears: bears
+        });
+      }.bind(this));
+    },
+
+    componentWillUnmount: function() {
+      this.serverRequest.abort();
+    },
+
+    render: function() {
+      return (
+
+        <div>
+          {
+            this.state.bears.map(function(bear) {
+              return <article ><p key={bear.id}> name: {bear.name}  fishPreference: {bear.fishPreference} </p> </article>
+            })
+          }
+        </div>
+
+      );
+    }
+  });
+
+  ReactDOM.render(
+    <BearApp source="http://localhost:3000/api/bears" />,
+    document.getElementById('app')
+  );
+    </script>
   </body>
 </html>
