@@ -1,5 +1,5 @@
 const express = require('express');
-const jsonParser = require('body-parser').json();
+const jsonParser = require('body-parser').urlencoded();
 const Bear = require(__dirname + '/../models/bear');
 const handleDBError = require(__dirname + '/../lib/handle_db_error');
 
@@ -14,7 +14,9 @@ bearRouter.get('/bears', (req, res) => {
 });
 
 bearRouter.post('/bears', jsonParser, (req, res) => {
+  console.log(req.body);
   var newBear = new Bear(req.body);
+  console.log(newBear);
   newBear.save((err, data) => {
     if (err) return handleDBError(err, res);
 
