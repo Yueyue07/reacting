@@ -16,6 +16,7 @@ bearRouter.get('/bears', (req, res) => {
 bearRouter.post('/bears', jsonParser, (req, res) => {
   console.log(req.body);
   var newBear = new Bear(req.body);
+  console.log(newBear);
   newBear.save((err, data) => {
     if (err) return handleDBError(err, res);
 
