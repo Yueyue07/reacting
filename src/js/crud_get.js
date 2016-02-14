@@ -1,3 +1,6 @@
+/**
+ * @jsx React.DOM
+ */
 var BearApp = React.createClass({
 
 getInitialState: function() {
@@ -32,10 +35,15 @@ componentWillUnmount: function() {
 
 render: function() {
   return (
-    <div>
+    <div className='bearList'>
       {
         this.state.bears.map(function(bear) {
-          return <section key={bear._id}> <p> name: {bear.name}</p>  <p>fishPreference: {bear.fishPreference} </p> </section>
+          return
+            <section key={bear._id}>
+              <p> name: {bear.name}</p>
+              <p>fishPreference: {bear.fishPreference} </p>
+              <p>Delete</p>
+            </section>
         })
       }
     </div>
