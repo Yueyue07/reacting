@@ -5,7 +5,7 @@
     <script src="https://fb.me/react-dom-0.14.7.js"></script>
     <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-    <script type="text/babel" src="js/build.js"></script>
+    <script type="text/babel" src="src/build.js"></script>
   </head>
   <body>
     <div id="app"></div>
@@ -23,14 +23,33 @@
         },
         handleChange: function(event) {
           this.setState({value: event.target.value});
+          var obj = {};
+          obj.name = this.state.value;
+          console.log(obj.name);
+          $.ajax({
+
+            url: 'http://localhost:3000/api/bears',
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify(obj),
+            success: function(data) {
+              this.setState({data: data});
+              console.log('data ' + data.name);
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
         },
         render: function() {
           return (
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
+            <form onSubmit={this.handleChange}>
+              <input
+                type="text"
+                value={this.state.value}
+              />
+              <button type="submit">submit</button>
+            </form>
           );
         }
       });
