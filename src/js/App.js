@@ -22,11 +22,14 @@ componentWillUnmount: function() {
 
 render: function() {
   return (
-
     <div>
       {
         this.state.bears.map(function(bear) {
-          return <section key={bear._id}> <p> name: {bear.name}</p>  <p>fishPreference: {bear.fishPreference} </p> </section>
+          return <section key={bear._id}> 
+              <p> name: {bear.name}</p>  
+              <p>fishPreference: {bear.fishPreference} </p> 
+              <p>{this.key}</p>
+            </section>
         })
       }
     </div>
