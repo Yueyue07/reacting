@@ -23,11 +23,64 @@ AngularJS lets us create dynamic application by extending HTMl attributes.
   <body>
     <div>
       <label>Name:</label>
-      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <input type="text" ng-model="yourContent" placeholder="Enter content here">
       <hr>
-      <h1>Hello {{yourName}}!</h1>
+      <h1>{{yourContent}}!</h1>
     </div>
   </body>
 </html>
 
 ```
+In the above example, `ng-model` is built core in AngularJS, which represent the data model `{{yourContent}}` is the variable to store the input data. `{{yourContent}}` is to execute this variable and display its value into h1 tag.
+### React
+
+```js
+
+var MarkdownEditor = React.createClass({
+  getInitialState: function() {
+    return {value: 'Type some *markdown* here!'};
+  },
+  handleChange: function() {
+    this.setState({value: this.refs.textarea.value});
+  },
+  rawMarkup: function() {
+    return { __html: marked(this.state.value, {sanitize: true}) };
+  },
+  render: function() {
+    return (
+      <div className="MarkdownEditor">
+        <h3>Input</h3>
+        <textarea
+          onChange={this.handleChange}
+          ref="textarea"
+          defaultValue={this.state.value} />
+        <h3>Output</h3>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={this.rawMarkup()}
+        />
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(<MarkdownEditor />, mountNode);
+
+Instead of inserting React attribute in html tags, React will build  `React.createClass ` , using `render: function() { return()}` to display the content inside return() in the html page. React.createClass is just like object in Javascript with `key value pairs` format. In the above example, render function return elements  
+     `<div className="MarkdownEditor">
+        <h3>Input</h3>
+        <textarea
+          onChange={this.handleChange}
+          ref="textarea"
+          defaultValue={this.state.value} />
+        <h3>Output</h3>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={this.rawMarkup()}
+        />
+      </div>`
+will be dynamically displayed in the page. 
+
+```
+
+### Comparison
