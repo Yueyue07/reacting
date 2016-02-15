@@ -8,9 +8,9 @@ AngularJS lets us create dynamic application by extending HTMl attributes.
 
 # Comparison between AngularJS and React
 
-## Example
+## Example 1
 
-![Alt text](/screen_shots/example1.png?raw=true "Optional Title")
+![Alt text](/screen_shots/example1.png?raw=true "Optional Title" {width=40px height=40px})
 
 ### AngularJS
 
