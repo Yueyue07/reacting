@@ -1,4 +1,4 @@
-//bear class
+//show Bear
 var Bear = React.createClass({
   render: function() {
     return (
@@ -14,71 +14,101 @@ var Bear = React.createClass({
   }
 });
 
+
+//update bear
+var UpdateBear = React.createClass({displayName: "UpdateBear",
+  getInitialState: function() {
+    return {name: this.props.name, fishPreference: this.props.fishPreferences, _id: this.props.key};
+  },
+  handleNameChange: function(e) {
+    this.setState({name: e.target.value});
+  },
+  handleFishPreferenceChange: function(e) {
+    this.setState({fishPreference: e.target.value});
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var name = this.state.name.trim();
+    var fishPreference = this.state.fishPreference.trim();
+    var bear = {name: name, fishPreference: fishPreference};
+    if (!fishPreference || !name) {
+      return;
+    }
+    $.ajax({
+      url: "http://localhost:3000/api/bears/" + this.props._id,
+      dataType: 'json',
+      type: 'PUT',
+      data: bear,
+      success: function(data) {
+        console.log('updated');
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+    this.setState({name: '', fishPreference: ''});
+  },
+  render: function() {
+    return (
+
+      <form className="bearUpdate" onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          placeholder="Bear Name"
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        />
+        <input
+          type="text"
+          placeholder="Fish Preference"
+          value={this.state.fishPreference}
+          onChange={this.handleFishPreferenceChange}
+        />
+        <input
+          type="submit"
+          value="Update"
+        />
+      </form>
+      )
+  }
+});
+
+var BearDelete = React.createClass({displayName: "BearDelete",
+  getInitialState: function() {
+    return {_id: this.props._id};
+  },
+  killBear: function(){
+    var id = this.state._id;
+    $.ajax({
+        url: 'http://localhost:3000/api/bears/' + id,
+        type: 'DELETE',
+        cache: false,
+        success: function(data) {
+          console.log('gone!');
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+  },
+  render: function(){
+    var id = this.state._id;
+    return (
+          <button onClick= {this.killBear} >x</button>
+    );
+  }
+});
+
 //bear list
 var BearList = React.createClass({
 
   render: function() {
     var bearNodes = this.props.data.map(function(bear) {
       return (
-        <div key={bear._id} >
-        <Bear name={bear.name} fishPreferences={bear.fishPreference}></Bear>
-
-
-          <button onClick={ function() {
-            console.log(bear._id);
-            $.ajax({
-              url: 'http://localhost:3000/api/bears/' + bear._id,
-              type: 'DELETE',
-              cache: false,
-              success: function(data) {
-                console.log('gone!');
-              }.bind(this),
-              error: function(xhr, status, err) {
-                console.error(this.props.url, status, err.toString());
-              }.bind(this)
-            });
-          }}>x</button>
-
-          <form onSubmit={function(e){
-              e.preventDefault();
-              var newName = $('#newName').val().trim();
-              var newFishPreference = $('#newFish').val().trim();
-              if (!newFishPreference || !newName) {
-                return;
-              }
-              $('#newName').val('');
-              $('#newFish').val('');
-              var newBear = {
-                name: newName,
-                fishPreference: newFishPreference,
-              }
-              $.ajax({
-                url: 'http://localhost:3000/api/bears/' + bear._id,
-                type: 'PUT',
-                data: newBear,
-                success: function(data) {
-                console.log('changed!');
-                }.bind(this),
-                error: function(xhr, status, err) {
-                  console.error(this.props.url, status, err.toString());
-                }.bind(this)
-                });
-            }
-          }>
-
-            <input
-              type="text"
-              id="newName"
-              placeholder="Change Name"
-            />
-            <input
-              type="text"
-              placeholder="Change Fish"
-              id="newFish"
-            />
-            <button type="submit">update</button>
-          </form>
-
+        <div key={bear._id}>
+          <Bear name={bear.name} fishPreferences={bear.fishPreference}></Bear>
+          <BearDelete _id={bear._id}></BearDelete>
+          <UpdateBear _id={bear._id} name={bear.name} fishPreference={bear.fishPreference}></UpdateBear>
         </div>
       );
     });
