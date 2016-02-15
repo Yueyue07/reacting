@@ -5,13 +5,12 @@
     <script src="https://fb.me/react-dom-0.14.7.js"></script>
     <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script type="text/babel" src="js/build.js"></script>
   </head>
   <body>
     <div id="get"></div>
 
     <div id="post"></div>
-
-
 
 <!--build.js-->
     <script src="src/build.js">
@@ -19,7 +18,7 @@
 <!--endbuild-->
     <script type="text/babel">
     var BasicInputBox = React.createClass ({
-      render: function (){
+      render: function () {
         return (
          <div>
            <label>{this.props.label}</label>
@@ -42,14 +41,10 @@
           e.preventDefault()
           self = this
 
-          // console.log(this.state.name);
-
           var data = {
             name: this.state.name,
             fishPreference: this.state.fishPreference
           }
-
-          console.log(JSON.stringify(data));
 
           // Submit form via jQuery/AJAX
           $.ajax({
@@ -93,7 +88,7 @@
         }
     });
 
-    ReactDOM.render(<Contact></Contact>, document.getElementById('post'));
+    ReactDOM.render(<Contact ></Contact>, document.getElementById('post'));
 
     </script>
   </body>

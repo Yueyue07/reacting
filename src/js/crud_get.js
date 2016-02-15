@@ -23,7 +23,7 @@ loadBearsFromServer: function() {
 
 componentDidMount: function() {
   this.loadBearsFromServer();
-  setInterval(this.loadBearsFromServer,1000);
+  setInterval(this.loadBearsFromServer, 1000);
 },
 
 componentWillUnmount: function() {
