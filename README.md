@@ -69,7 +69,8 @@ ReactDOM.render(<MarkdownEditor />, mountNode);
 
 Instead of inserting React attribute in html tags, React will build  `React.createClass ` , using `render: function() { return()}` to display the content inside return() in the html page. React.createClass is just like object in Javascript with `key value pairs` format.
 In the above example, render function return elements:  
-     `<div className="MarkdownEditor">
+     ```js
+     <div className="MarkdownEditor">
         <h3>Input</h3>
         <textarea
           onChange={this.handleChange}
@@ -80,7 +81,8 @@ In the above example, render function return elements:
           className="content"
           dangerouslySetInnerHTML={this.rawMarkup()}
         />
-      </div>`
+      </div>
+      ```
 will be dynamically displayed in the page. In `textarea` tag, if there is anything change in inputing content, `oncChange` will call `handleChange` function inside the MarkdownEditor object and then reset the value. Eventually the input content or markdown will display in the div#content.  
 
 
