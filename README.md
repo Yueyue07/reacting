@@ -3,10 +3,18 @@ AngularJS initially released in 2009 by google. Right now, Angular is updated to
 AngularJS lets us create dynamic application by extending HTMl attributes.  
 
 # React
-
-
+React is front-end framework made by Facebook. Using React, you can render content what is only needed to change.
 
 # Comparison between AngularJS and React
+
+## AngularJS
+The method Angular uses to inject data is via scopes and directives. A scope in the Angular just like an object which contains various data,object or function
+
+
+## React
+
+React uses JSX files to write views, which could include Javascript and HTML in the same file. It is a kind of paradigm shift for people come from AngularJS. React use so called virtual DOM to generate content in the page.
+
 
 ## Example 1
 
@@ -91,3 +99,6 @@ will be dynamically displayed in the page. In `textarea` tag, if there is anythi
 ### Comparison
 
 From this example, we could find out that in order to achieve same function, AngularJS uses less codes comparing to React. But React have more flexibility than AngularJS, React create class which could include more function to operate and generate data, like we could event input data as markdown.
+
+# Reference
+https://www.codementor.io/reactjs/tutorial/react-vs-angularjs
